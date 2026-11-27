@@ -1,0 +1,1059 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fadli — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0a0a;
+  --bg-2: #111111;
+  --bg-3: #171717;
+  --border: #232323;
+  --text: #f5f5f5;
+  --text-muted: #8a8a8a;
+  --accent: #ff2d2d;
+  --accent-glow: rgba(255, 45, 45, 0.35);
+  --radius: 24px;
+  --radius-sm: 14px;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+html { scroll-behavior:smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', system-ui, sans-serif;
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ambient glow */
+body::before {
+  content:'';
+  position:fixed;
+  top:-30%;
+  right:-20%;
+  width:800px;
+  height:800px;
+  background: radial-gradient(circle, var(--accent-glow) 0%, transparent 65%);
+  filter: blur(80px);
+  z-index:0;
+  pointer-events:none;
+  opacity:.5;
+}
+body::after {
+  content:'';
+  position:fixed;
+  bottom:-40%;
+  left:-20%;
+  width:700px;
+  height:700px;
+  background: radial-gradient(circle, rgba(255,45,45,.15) 0%, transparent 65%);
+  filter: blur(100px);
+  z-index:0;
+  pointer-events:none;
+}
+
+.container {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 32px;
+  position: relative;
+  z-index: 1;
+}
+
+/* ============ NAVBAR ============ */
+.navbar {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  background: rgba(15, 15, 15, 0.7);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 8px 8px 8px 24px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  box-shadow: 0 8px 32px rgba(0,0,0,.5);
+  animation: slideDown .8s cubic-bezier(.2,.9,.3,1);
+}
+
+@keyframes slideDown {
+  from { opacity:0; transform: translate(-50%, -30px); }
+  to { opacity:1; transform: translate(-50%, 0); }
+}
+
+.nav-brand {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: -.02em;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nav-brand .dot {
+  width: 8px;
+  height: 8px;
+  background: var(--accent);
+  border-radius: 50%;
+  box-shadow: 0 0 12px var(--accent);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity:1; transform: scale(1); }
+  50% { opacity:.6; transform: scale(.85); }
+}
+
+.nav-links {
+  display: flex;
+  gap: 4px;
+  list-style: none;
+}
+
+.nav-links a {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 8px 16px;
+  border-radius: 999px;
+  transition: all .25s;
+}
+
+.nav-links a:hover {
+  color: var(--text);
+  background: var(--bg-3);
+}
+
+.nav-cta {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all .25s;
+  font-family: inherit;
+}
+
+.nav-cta:hover {
+  box-shadow: 0 0 24px var(--accent-glow);
+  transform: translateY(-1px);
+}
+
+/* ============ HERO ============ */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 140px 0 80px;
+  position: relative;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.hero-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-size: 12px;
+  color: var(--text-muted);
+  font-weight: 500;
+  margin-bottom: 28px;
+  animation: fadeUp .8s .1s both;
+}
+
+.hero-tag span {
+  width: 6px;
+  height: 6px;
+  background: #22c55e;
+  border-radius: 50%;
+  box-shadow: 0 0 8px #22c55e;
+}
+
+.hero h1 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(42px, 7vw, 84px);
+  font-weight: 700;
+  line-height: 1.02;
+  letter-spacing: -.04em;
+  margin-bottom: 28px;
+  animation: fadeUp .8s .2s both;
+}
+
+.hero h1 .accent {
+  color: var(--accent);
+  font-style: italic;
+  position: relative;
+  display: inline-block;
+}
+
+.hero h1 .accent::after {
+  content:'';
+  position: absolute;
+  bottom: 4px;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--accent);
+  border-radius: 2px;
+  transform: scaleX(0);
+  transform-origin: left;
+  animation: underlineIn 1s 1s cubic-bezier(.2,.9,.3,1) forwards;
+}
+
+@keyframes underlineIn {
+  to { transform: scaleX(1); }
+}
+
+.hero-desc {
+  font-size: 17px;
+  color: var(--text-muted);
+  max-width: 480px;
+  margin-bottom: 40px;
+  animation: fadeUp .8s .35s both;
+}
+
+.hero-desc strong { color: var(--text); font-weight: 600; }
+
+.hero-actions {
+  display: flex;
+  gap: 14px;
+  animation: fadeUp .8s .5s both;
+  flex-wrap: wrap;
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: #fff;
+  padding: 16px 32px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 14px;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: all .3s;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: inherit;
+}
+
+.btn-primary:hover {
+  box-shadow: 0 0 40px var(--accent-glow);
+  transform: translateY(-2px);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text);
+  padding: 16px 32px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 14px;
+  text-decoration: none;
+  border: 1px solid var(--border);
+  cursor: pointer;
+  transition: all .3s;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-ghost:hover {
+  background: var(--bg-2);
+  border-color: var(--text-muted);
+}
+
+@keyframes fadeUp {
+  from { opacity:0; transform: translateY(24px); }
+  to { opacity:1; transform: translateY(0); }
+}
+
+/* HERO CARD — kartu profil */
+.hero-card {
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 32px;
+  position: relative;
+  overflow: hidden;
+  animation: fadeUp .8s .4s both;
+  box-shadow: 0 24px 64px rgba(0,0,0,.4);
+}
+
+.hero-card::before {
+  content:'';
+  position: absolute;
+  top:-50%;
+  right:-50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, var(--accent-glow) 0%, transparent 40%);
+  opacity:.25;
+  pointer-events:none;
+}
+
+.profile-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent), #ff5e5e);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 20px;
+  box-shadow: 0 8px 32px var(--accent-glow);
+  position: relative;
+  z-index: 1;
+}
+
+.hero-card h3 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 22px;
+  margin-bottom: 4px;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-card .role {
+  color: var(--text-muted);
+  font-size: 13px;
+  margin-bottom: 24px;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-card-info {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  position: relative;
+  z-index: 1;
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 13px;
+}
+
+.info-row:last-child { border-bottom: none; }
+
+.info-row .label { color: var(--text-muted); }
+.info-row .value { color: var(--text); font-weight: 600; }
+
+/* ============ SECTION ============ */
+.section {
+  padding: 120px 0;
+  position: relative;
+}
+
+.section-head {
+  margin-bottom: 64px;
+  max-width: 700px;
+}
+
+.section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--accent);
+  margin-bottom: 16px;
+}
+
+.section-label::before {
+  content:'';
+  width: 24px;
+  height: 1px;
+  background: var(--accent);
+}
+
+.section h2 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(32px, 5vw, 56px);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -.03em;
+  margin-bottom: 20px;
+}
+
+.section h2 .accent { color: var(--accent); font-style: italic; }
+
+.section p.lead {
+  color: var(--text-muted);
+  font-size: 17px;
+  max-width: 600px;
+}
+
+/* ============ ABOUT — ala artikel blog ============ */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 80px;
+  align-items: start;
+}
+
+.about-side {
+  position: sticky;
+  top: 120px;
+}
+
+.about-side .big-num {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 120px;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--accent);
+  letter-spacing: -.05em;
+  margin-bottom: 16px;
+}
+
+.about-side .big-num small {
+  font-size: 24px;
+  color: var(--text-muted);
+  font-weight: 500;
+  display: block;
+  margin-top: 8px;
+  letter-spacing: 0;
+}
+
+.about-side p {
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+.article p {
+  font-size: 17px;
+  line-height: 1.8;
+  color: #d4d4d4;
+  margin-bottom: 24px;
+}
+
+.article p::first-letter {
+  font-size: 3em;
+  font-weight: 700;
+  color: var(--accent);
+  float: left;
+  line-height: 1;
+  margin: 4px 8px 0 0;
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.article p strong { color: var(--text); font-weight: 600; }
+
+.article blockquote {
+  border-left: 3px solid var(--accent);
+  padding-left: 24px;
+  margin: 40px 0;
+  font-style: italic;
+  font-size: 20px;
+  color: var(--text);
+  line-height: 1.6;
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.article blockquote cite {
+  display: block;
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-top: 12px;
+  font-style: normal;
+  font-family: 'Inter', sans-serif;
+}
+
+/* ============ HOBI ============ */
+.hobi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+  margin-top: 40px;
+}
+
+.hobi-card {
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 32px;
+  transition: all .35s cubic-bezier(.2,.9,.3,1);
+  position: relative;
+  overflow: hidden;
+}
+
+.hobi-card::before {
+  content:'';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  opacity: 0;
+  transition: opacity .35s;
+}
+
+.hobi-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-6px);
+  box-shadow: 0 24px 48px rgba(255,45,45,.15);
+}
+
+.hobi-card:hover::before { opacity: 1; }
+
+.hobi-icon {
+  font-size: 40px;
+  margin-bottom: 20px;
+  display: block;
+}
+
+.hobi-card h3 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 20px;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.hobi-card p {
+  color: var(--text-muted);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.hobi-tag {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 6px 14px;
+  background: rgba(255,45,45,.1);
+  color: var(--accent);
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+}
+
+/* ============ STATS ============ */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin-top: 40px;
+}
+
+.stat {
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 32px 24px;
+  text-align: center;
+  transition: all .3s;
+}
+
+.stat:hover {
+  border-color: var(--accent);
+  background: var(--bg-3);
+}
+
+.stat-num {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 42px;
+  font-weight: 700;
+  color: var(--accent);
+  line-height: 1;
+  margin-bottom: 10px;
+  letter-spacing: -.02em;
+}
+
+.stat-label {
+  font-size: 12px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  font-weight: 500;
+}
+
+/* ============ TIMELINE ============ */
+.timeline {
+  position: relative;
+  padding-left: 40px;
+  margin-top: 40px;
+}
+
+.timeline::before {
+  content:'';
+  position: absolute;
+  left: 12px;
+  top: 8px;
+  bottom: 8px;
+  width: 2px;
+  background: linear-gradient(180deg, var(--accent), transparent);
+}
+
+.timeline-item {
+  position: relative;
+  padding-bottom: 40px;
+}
+
+.timeline-item:last-child { padding-bottom: 0; }
+
+.timeline-item::before {
+  content:'';
+  position: absolute;
+  left: -34px;
+  top: 6px;
+  width: 12px;
+  height: 12px;
+  background: var(--bg);
+  border: 2px solid var(--accent);
+  border-radius: 50%;
+  box-shadow: 0 0 0 4px rgba(255,45,45,.15);
+}
+
+.timeline-date {
+  font-size: 12px;
+  color: var(--accent);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  margin-bottom: 8px;
+}
+
+.timeline-item h4 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 18px;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.timeline-item p {
+  color: var(--text-muted);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+/* ============ CONTACT ============ */
+.contact-box {
+  background: linear-gradient(135deg, var(--bg-2), var(--bg-3));
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 64px 48px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.contact-box::before {
+  content:'';
+  position: absolute;
+  top: -50%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, var(--accent-glow) 0%, transparent 60%);
+  filter: blur(60px);
+  opacity: .6;
+  pointer-events: none;
+}
+
+.contact-box > * { position: relative; z-index: 1; }
+
+.contact-box h2 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(32px, 5vw, 48px);
+  font-weight: 700;
+  letter-spacing: -.03em;
+  margin-bottom: 16px;
+}
+
+.contact-box p {
+  color: var(--text-muted);
+  font-size: 17px;
+  max-width: 500px;
+  margin: 0 auto 32px;
+}
+
+.contact-links {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* ============ FOOTER ============ */
+.footer {
+  border-top: 1px solid var(--border);
+  padding: 40px 0;
+  margin-top: 80px;
+}
+
+.footer-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--text-muted);
+  font-size: 13px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.footer-inner .dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  background: var(--accent);
+  border-radius: 50%;
+  margin: 0 8px;
+  vertical-align: middle;
+  box-shadow: 0 0 8px var(--accent);
+}
+
+/* ============ REVEAL ON SCROLL ============ */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all .8s cubic-bezier(.2,.9,.3,1);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width: 900px) {
+  .hero-grid,
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+  .hero { padding: 120px 0 60px; min-height: auto; }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .navbar { padding: 6px 6px 6px 16px; gap: 12px; }
+  .nav-links { display: none; }
+  .section { padding: 80px 0; }
+  .about-side { position: static; }
+  .about-side .big-num { font-size: 80px; }
+  .contact-box { padding: 48px 24px; }
+}
+
+@media (max-width: 500px) {
+  .container { padding: 0 20px; }
+  .stats-grid { grid-template-columns: 1fr 1fr; }
+  .hero-card { padding: 24px; }
+  .hobi-card { padding: 24px; }
+}
+
+/* custom scrollbar */
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+/* selection */
+::selection { background: var(--accent); color: #fff; }
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="nav-brand"><span class="dot"></span>Fadli.</div>
+  <ul class="nav-links">
+    <li><a href="#tentang">Tentang</a></li>
+    <li><a href="#hobi">Hobi</a></li>
+    <li><a href="#cerita">Cerita</a></li>
+    <li><a href="#kontak">Kontak</a></li>
+  </ul>
+  <button class="nav-cta" onclick="document.getElementById('kontak').scrollIntoView({behavior:'smooth'})">Sapa Aku</button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <div>
+        <div class="hero-tag"><span></span>Open to connect · 2026</div>
+        <h1>
+          Halo, aku<br>
+          <span class="accent">Fadli</span>.
+        </h1>
+        <p class="hero-desc">
+          Remaja <strong>14 tahun</strong> yang lagi belajar banyak hal — dari ngoding,
+          desain, sampai ngulik hal-hal random yang bikin penasaran. Ini ceritaku, bukan ceritamu.
+        </p>
+        <div class="hero-actions">
+          <a href="#tentang" class="btn-primary">Kenalan Yuk →</a>
+          <a href="#cerita" class="btn-ghost">Baca Cerita</a>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <div class="profile-avatar">F</div>
+        <h3>Fadli</h3>
+        <p class="role">Student · Dreamer · Learner</p>
+        <div class="hero-card-info">
+          <div class="info-row">
+            <span class="label">Umur</span>
+            <span class="value">14 tahun</span>
+          </div>
+          <div class="info-row">
+            <span class="label">Status</span>
+            <span class="value">Pelajar</span>
+          </div>
+          <div class="info-row">
+            <span class="label">Domisili</span>
+            <span class="value">Indonesia 🇮🇩</span>
+          </div>
+          <div class="info-row">
+            <span class="label">Hobi</span>
+            <span class="value">Coli & Nonton B0k3p</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TENTANG — ala artikel blog -->
+<section class="section" id="tentang">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="section-label">01 · Tentang</div>
+      <h2>Siapa aku <span class="accent">sebenarnya?</span></h2>
+    </div>
+
+    <div class="about-grid">
+      <div class="about-side reveal">
+        <div class="big-num">
+          14
+          <small>Tahun, masih muda, masih belajar.</small>
+        </div>
+        <p>Setiap hari adalah kesempatan buat belajar hal baru. Kadang berhasil, kadang gagal. Dan itu nggak apa-apa.</p>
+      </div>
+
+      <div class="article reveal">
+        <p>
+          Namaku <strong>Fadli</strong>. Umurku baru <strong>14 tahun</strong>, tapi rasa penasaranku
+          udah kayak umur 40. Aku tipe orang yang kalau penasaran sama sesuatu, bisa
+          duduk berjam-jam buat nyari tau gimana cara kerjanya — entah itu game, kode,
+          atau kenapa langit warnanya biru.
+        </p>
+        <p>
+          Aku nggak punya cerita masa kecil yang heroik. Nggak lahir dari keluarga
+          seniman, nggak jago matematika dari kecil. Aku cuma anak biasa yang suka
+          ngulik. Kadang berhasil, sering juga gagal. Tapi ya, namanya juga belajar.
+        </p>
+
+        <blockquote>
+          "Anak 14 tahun nggak harus punya jawaban buat semuanya. Yang penting, dia
+          nggak berhenti nanya."
+          <cite>— Fadli, di suatu malam yang sepi</cite>
+        </blockquote>
+
+        <p>
+          Bagiku, jadi <strong>anak muda</strong> bukan soal seberapa banyak yang udah
+          dicapai, tapi seberapa besar keberanian buat mulai. Mulai belajar, mulai
+          bikin kesalahan, mulai memperbaiki diri. Dan itu proses yang nggak akan
+          pernah selesai — sampai kapanpun.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOBI -->
+<section class="section" id="hobi">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="section-label">02 · Hobi</div>
+      <h2>Hal yang bikin aku <span class="accent">lupa waktu.</span></h2>
+      <p class="lead">Kalau udah masuk ke sini, jangan harap aku inget waktu. Serius.</p>
+    </div>
+
+    <div class="hobi-grid">
+      <div class="hobi-card reveal">
+        <span class="hobi-icon">💻</span>
+        <h3>Coding</h3>
+        <p>Ngulik HTML, CSS, sama JS. Kadang bikin website random cuma buat iseng. Kalau error, ngamuk dulu, baru benerin.</p>
+        <span class="hobi-tag">Favorit</span>
+      </div>
+      <div class="hobi-card reveal">
+        <span class="hobi-icon">🎮</span>
+        <h3>Gaming</h3>
+        <p>Main game buat refreshing. Mobile Legends, Free Fire, kadang game ringan pas lagi males mikir berat.</p>
+        <span class="hobi-tag">Daily</span>
+      </div>
+      <div class="hobi-card reveal">
+        <span class="hobi-icon">🎧</span>
+        <h3>Dengerin Musik</h3>
+        <p>Playlist-nya campur aduk — dari yang galau sampai yang bikin semangat. Tergantung mood.</p>
+        <span class="hobi-tag">Mood booster</span>
+      </div>
+      <div class="hobi-card reveal">
+        <span class="hobi-icon">📖</span>
+        <h3>Baca & Belajar</h3>
+        <p>Suka baca artikel random di internet. Kadang yang penting, kadang yang nggak penting. Yang penting baca.</p>
+        <span class="hobi-tag">Curiosity</span>
+      </div>
+    </div>
+
+    <div class="stats-grid reveal">
+      <div class="stat">
+        <div class="stat-num" data-count="14">0</div>
+        <div class="stat-label">Umur</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num" data-count="4">0</div>
+        <div class="stat-label">Hobi Utama</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num" data-count="99">0</div>
+        <div class="stat-label">Rasa Penasaran</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num" data-count="1">0</div>
+        <div class="stat-label">Tujuan: Belajar</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CERITA / TIMELINE -->
+<section class="section" id="cerita">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="section-label">03 · Cerita</div>
+      <h2>Perjalanan <span class="accent">sejauh ini.</span></h2>
+      <p class="lead">Belum panjang, tapi udah banyak cerita. Ini beberapa di antaranya.</p>
+    </div>
+
+    <div class="timeline">
+      <div class="timeline-item reveal">
+        <div class="timeline-date">2012</div>
+        <h4>Lahir ke Dunia</h4>
+        <p>Awal mula semuanya. Nggak inget apa-apa, tapi kata orang aku lahir sambil nangis. Wajar.</p>
+      </div>
+      <div class="timeline-item reveal">
+        <div class="timeline-date">2018</div>
+        <h4>Kenal Dunia Game</h4>
+        <p>Pertama kali pegang HP dan main game. Sejak itu, dunia rasanya lebih luas dari yang kelihatan.</p>
+      </div>
+      <div class="timeline-item reveal">
+        <div class="timeline-date">2022</div>
+        <h4>Ngulik HTML Pertama Kali</h4>
+        <p>Bikin halaman pertama pakai Notepad. Nggak jalan. Error. Ngulang. Akhirnya jalan. Seneng banget.</p>
+      </div>
+      <div class="timeline-item reveal">
+        <div class="timeline-date">2024</div>
+        <h4>Mulai Serius Belajar Coding</h4>
+        <p>Mulai paham CSS, JS, dan cara bikin layout. Website pertama selesai — jelek, tapi bangga.</p>
+      </div>
+      <div class="timeline-item reveal">
+        <div class="timeline-date">Sekarang</div>
+        <h4>Masih Belajar, Masih Jalan</h4>
+        <p>Belum jadi apa-apa, tapi nggak berhenti. Pelan-pelan aja, yang penting jalan.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="section" id="kontak">
+  <div class="container">
+    <div class="contact-box reveal">
+      <h2>Ngobrol yuk?</h2>
+      <p>Kalau ada yang mau ditanyain, diajak kolaborasi, atau cuma mau nyapa — santai aja. Aku nggak gigit.</p>
+      <div class="contact-links">
+        <a href="mailto:fadli@example.com" class="btn-primary">✉ Kirim Email</a>
+        <a href="#" class="btn-ghost">📷 Instagram</a>
+        <a href="#" class="btn-ghost">💬 WhatsApp</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div>© 2026 Fadli. Dibuat dengan rasa penasaran.</div>
+      <div>Made with <span class="dot"></span> somewhere in Indonesia</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ==== REVEAL ON SCROLL ====
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      io.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.12 });
+
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+// ==== COUNTER ANIMATION ====
+const counterIO = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const el = e.target;
+      const target = +el.dataset.count;
+      let cur = 0;
+      const step = Math.max(1, Math.ceil(target / 40));
+      const tick = () => {
+        cur += step;
+        if (cur >= target) { el.textContent = target; return; }
+        el.textContent = cur;
+        requestAnimationFrame(tick);
+      };
+      tick();
+      counterIO.unobserve(el);
+    }
+  });
+}, { threshold: 0.5 });
+
+document.querySelectorAll('[data-count]').forEach(el => counterIO.observe(el));
+</script>
+
+</body>
+</html>
